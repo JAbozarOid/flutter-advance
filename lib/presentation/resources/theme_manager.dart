@@ -1,8 +1,8 @@
-import 'package:cleanarch/presentation/color_manager.dart';
-import 'package:cleanarch/presentation/font_manager.dart';
-import 'package:cleanarch/presentation/styles_manager.dart';
-import 'package:cleanarch/presentation/values_manager.dart';
+import 'package:cleanarch/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'font_manager.dart';
+import 'styles_manager.dart';
+import 'values_manager.dart';
 
 // this function will be inside of application class
 // because we need to apply one theme through all the app to our application
