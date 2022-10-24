@@ -3,6 +3,7 @@ import 'package:cleanarch/presentation/forget_password/forget_password.dart';
 import 'package:cleanarch/presentation/main/main_view.dart';
 import 'package:cleanarch/presentation/onboarding/onboarding.dart';
 import 'package:cleanarch/presentation/register/register.dart';
+import 'package:cleanarch/presentation/resources/strings_manager.dart';
 import 'package:cleanarch/presentation/store_details/store_details.dart';
 import 'package:flutter/material.dart';
 
@@ -45,9 +46,9 @@ class RouteGenerator {
   static Route<dynamic> unDefinedRoute() {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
-              appBar: AppBar(title: const Text("No Route Found")),
+          appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
               body: const Center(
-                child: Text("No Route Found"),
+                child: Text(AppStrings.noRouteFound),
               ),
             ));
   }
