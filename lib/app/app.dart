@@ -1,8 +1,8 @@
-import 'package:cleanarch/presentation/theme_manager.dart';
 import 'package:flutter/material.dart';
 
-class MyApp extends StatefulWidget {
+import '../presentation/resources/theme_manager.dart';
 
+class MyApp extends StatefulWidget {
   // default constructor -> when we are creating a singleton of this class  the default constructor must be removed
   //const MyApp({Key? key}) : super(key: key);
 

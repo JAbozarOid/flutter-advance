@@ -1,5 +1,6 @@
-import 'package:cleanarch/presentation/font_manager.dart';
 import 'package:flutter/material.dart';
+
+import 'font_manager.dart';
 
 // create a private function
 TextStyle _getTextStyle(
