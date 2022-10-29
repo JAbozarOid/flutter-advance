@@ -1,5 +1,10 @@
 import 'package:cleanarch/presentation/resources/color_manager.dart';
+import 'package:cleanarch/presentation/resources/strings_manager.dart';
+import 'package:cleanarch/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../resources/assets_manager.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({Key? key}) : super(key: key);
@@ -9,11 +14,113 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
+  late final List<SliderObject> _list = _getSliderData();
+  final PageController _pageController = PageController(initialPage: 0);
+  int _currentPageIndex = 0;
+
+  List<SliderObject> _getSliderData() => [
+        SliderObject(AppStrings.onBoardingTitle1,
+            AppStrings.onBoardingSubTitle1, ImageAssets.onBoardingLogo1),
+        SliderObject(AppStrings.onBoardingTitle2,
+            AppStrings.onBoardingSubTitle2, ImageAssets.onBoardingLogo2),
+        SliderObject(AppStrings.onBoardingTitle3,
+            AppStrings.onBoardingSubTitle3, ImageAssets.onBoardingLogo3),
+        SliderObject(AppStrings.onBoardingTitle4,
+            AppStrings.onBoardingSubTitle4, ImageAssets.onBoardingLogo4)
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
-      body: const Center(child: Text("Welcome to Onboarding")),
+      appBar: AppBar(
+        elevation: AppSize.s1_5,
+        backgroundColor: ColorManager.white,
+        // this apply to status bar
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: ColorManager.white,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark),
+      ),
+      body: PageView.builder(
+          controller: _pageController,
+          itemCount: _list.length,
+          onPageChanged: (index) {
+            setState(() {
+              _currentPageIndex = index;
+            });
+          },
+          itemBuilder: (context, index) {
+            // return onBoarding page
+            return OnBoardingPage(_list[index]);
+          }),
+      bottomSheet: Container(
+        color: ColorManager.white,
+        height: AppSize.s100,
+        child: Column(
+          children: [
+            Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      AppStrings.skip,
+                      textAlign: TextAlign.end,
+                    ))),
+
+            // add layout for indicator and arrows
+
+          ],
+        ),
+      ),
     );
   }
+}
+
+class OnBoardingPage extends StatelessWidget {
+  final SliderObject _sliderObject;
+
+  const OnBoardingPage(this._sliderObject, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      // because it start from top
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        // create space at the top
+        const SizedBox(
+          height: AppSize.s40,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p8),
+          child: Text(
+            _sliderObject.title,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p8),
+          child: Text(
+            _sliderObject.subTitle,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ),
+        const SizedBox(
+          height: AppSize.s60,
+        ),
+      ],
+    );
+  }
+}
+
+// data class for sliders
+class SliderObject {
+  String title;
+  String subTitle;
+  String image;
+
+  SliderObject(this.title, this.subTitle, this.image);
 }
