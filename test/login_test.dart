@@ -2,6 +2,7 @@ import 'package:cleanarch/presentation/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// widget test
 void main() {
   testWidgets("Should have a title", (WidgetTester tester) async {
 

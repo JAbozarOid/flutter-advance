@@ -1,6 +1,7 @@
 import 'package:cleanarch/utils/validator_email.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// unit test
 void main() {
   test('validate for empty email id', () {
     // Arrange and Act
