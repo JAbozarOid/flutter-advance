@@ -1,6 +1,7 @@
 import 'package:cleanarch/utils/maths_util.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// unit test
 void main() {
   // all test function in a one class can goes in group
   group('Maths utils -', () {
