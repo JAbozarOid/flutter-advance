@@ -9,7 +9,7 @@ class OnBoardingViewModel extends BaseViewModel
     with OnBoardingViewModelInputs, OnBoardingViewModelOutputs {
   /// with stream controller our view model can communicate with our view
   final StreamController _streamController =
-      StreamController<SlideViewObject>();
+      StreamController<SliderViewObject>();
 
   late final List<SliderObject> _list;
   int _currentPageIndex = 0;
@@ -62,7 +62,7 @@ class OnBoardingViewModel extends BaseViewModel
 
   // outputs
   @override
-  Stream<SlideViewObject> get outputSliderViewObject =>
+  Stream<SliderViewObject> get outputSliderViewObject =>
       _streamController.stream.map((slideViewObject) => slideViewObject);
 
   // private function
@@ -78,7 +78,7 @@ class OnBoardingViewModel extends BaseViewModel
       ];
 
   _postDataToView() {
-    inputSliderViewObject.add(SlideViewObject(
+    inputSliderViewObject.add(SliderViewObject(
         _list[_currentPageIndex], _list.length, _currentPageIndex));
   }
 }
@@ -95,10 +95,10 @@ abstract class OnBoardingViewModelInputs {
 
 // outputs mean data or results that will be send from our view model to our view
 abstract class OnBoardingViewModelOutputs {
-  Stream<SlideViewObject> get outputSliderViewObject;
+  Stream<SliderViewObject> get outputSliderViewObject;
 }
 
-class SlideViewObject {
+class SliderViewObject {
   SliderObject sliderObject;
 
   // how many slide should be showed
@@ -106,5 +106,5 @@ class SlideViewObject {
 
   int currentIndex;
 
-  SlideViewObject(this.sliderObject, this.numOfSlides, this.currentIndex);
+  SliderViewObject(this.sliderObject, this.numOfSlides, this.currentIndex);
 }
