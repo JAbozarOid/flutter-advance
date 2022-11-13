@@ -3,6 +3,7 @@ import 'package:cleanarch/presentation/resources/strings_manager.dart';
 import 'package:cleanarch/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../resources/assets_manager.dart';
 
@@ -34,7 +35,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       appBar: AppBar(
-        elevation: AppSize.s1_5,
+        // the line on status bar of the device
+        elevation: AppSize.s0,
         backgroundColor: ColorManager.white,
         // this apply to status bar
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -63,17 +65,102 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       AppStrings.skip,
                       textAlign: TextAlign.end,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ))),
 
             // add layout for indicator and arrows
-
+            _getBottomSheetWidget()
           ],
         ),
       ),
     );
+  }
+
+  Widget _getBottomSheetWidget() {
+    return Container(
+      color: ColorManager.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // left arrow
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+              onTap: () {
+                // go to the next slide
+                _pageController.animateToPage(_getNextIndex(),
+                    duration:
+                        const Duration(milliseconds: DurationConstants.d300),
+                    curve: Curves.bounceInOut);
+              },
+              child: SizedBox(
+                height: AppSize.s20,
+                width: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.leftArrowIC),
+              ),
+            ),
+          ),
+
+          // circle indicator
+          Row(
+            children: [
+              for (int i = 0; i < _list.length; i++)
+                Padding(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: _getProperCircle(i),
+                )
+            ],
+          ),
+
+          // right arrow
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+              onTap: () {
+                // go to the previous slide
+                _pageController.animateToPage(_getPreviousIndex(),
+                    duration:
+                        const Duration(milliseconds: DurationConstants.d300),
+                    curve: Curves.bounceInOut);
+              },
+              child: SizedBox(
+                height: AppSize.s20,
+                width: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.rightArrowIC),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _getProperCircle(int index) {
+    if (index == _currentPageIndex) {
+      return SvgPicture.asset(ImageAssets.hollowCircleIC); // selected slider
+    } else {
+      return SvgPicture.asset(ImageAssets.solidCircleIC); // unselected slider
+    }
+  }
+
+  int _getPreviousIndex() {
+    int previousIndex = _currentPageIndex--; // -1
+    if (previousIndex == -1) {
+      _currentPageIndex =
+          _list.length - 1; // infinite loop to go to the length of slider list
+    }
+    return _currentPageIndex;
+  }
+
+  int _getNextIndex() {
+    int nextIndex = _currentPageIndex++; // -1
+    if (nextIndex >= _list.length) {
+      _currentPageIndex = 0; // infinite loop to go to first inside the slider
+    }
+    return _currentPageIndex;
   }
 }
 
@@ -111,6 +198,9 @@ class OnBoardingPage extends StatelessWidget {
         const SizedBox(
           height: AppSize.s60,
         ),
+
+        // image widget
+        SvgPicture.asset(_sliderObject.image)
       ],
     );
   }
