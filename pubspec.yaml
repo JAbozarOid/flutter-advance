@@ -37,8 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.6
 
+
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -66,10 +69,6 @@ flutter:
      - assets/images/onboarding_logo2.svg
      - assets/images/onboarding_logo3.svg
      - assets/images/onboarding_logo4.svg
-     - assets/images/hollow_circle_ic.svg
-     - assets/images/left_arrow_ic.svg
-     - assets/images/right_arrow_ic.svg
-     - assets/images/solid_circle_ic.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
