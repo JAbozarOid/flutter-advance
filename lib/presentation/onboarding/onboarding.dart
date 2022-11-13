@@ -15,20 +15,7 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
-  late final List<SliderObject> _list = _getSliderData();
   final PageController _pageController = PageController(initialPage: 0);
-  int _currentPageIndex = 0;
-
-  List<SliderObject> _getSliderData() => [
-        SliderObject(AppStrings.onBoardingTitle1,
-            AppStrings.onBoardingSubTitle1, ImageAssets.onBoardingLogo1),
-        SliderObject(AppStrings.onBoardingTitle2,
-            AppStrings.onBoardingSubTitle2, ImageAssets.onBoardingLogo2),
-        SliderObject(AppStrings.onBoardingTitle3,
-            AppStrings.onBoardingSubTitle3, ImageAssets.onBoardingLogo3),
-        SliderObject(AppStrings.onBoardingTitle4,
-            AppStrings.onBoardingSubTitle4, ImageAssets.onBoardingLogo4)
-      ];
 
   @override
   Widget build(BuildContext context) {
@@ -162,6 +149,12 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     }
     return _currentPageIndex;
   }
+
+  @override
+  void dispose() {
+    // TODO: viewmodel.dispose()
+    super.dispose();
+  }
 }
 
 class OnBoardingPage extends StatelessWidget {
@@ -206,11 +199,3 @@ class OnBoardingPage extends StatelessWidget {
   }
 }
 
-// data class for sliders
-class SliderObject {
-  String title;
-  String subTitle;
-  String image;
-
-  SliderObject(this.title, this.subTitle, this.image);
-}
