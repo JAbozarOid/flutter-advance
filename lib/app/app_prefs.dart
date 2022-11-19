@@ -3,12 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String PREFS_KEY_LANG = 'PREFS_KEY_LANG';
+const String PREFS_KEY_LANG_INDEX = 'PREFS_KEY_LANG_INDEX';
 
 class AppPreferences {
 
   final SharedPreferences _sharedPreferences;
 
   AppPreferences(this._sharedPreferences);
+
+  Future<int> getAppLanguageIndex() async {
+    int? languageIndex = _sharedPreferences.getInt(PREFS_KEY_LANG_INDEX);
+
+    if (languageIndex != null) {
+      if(languageIndex == 0) {
+        return 0;
+      }else{
+        return 1;
+      }
+    }
+    else {
+      return 0;
+    }
+  }
+
+  void setAppLanguageIndex(int index) {
+    _sharedPreferences.setInt(PREFS_KEY_LANG_INDEX, index);
+  }
 
   //get language from the shared preferences of the device -> maybe user set a language rather than English
   Future<String> getAppLanguage() async {

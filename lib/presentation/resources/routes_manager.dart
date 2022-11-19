@@ -5,6 +5,7 @@ import 'package:cleanarch/presentation/onboarding/onboarding.dart';
 import 'package:cleanarch/presentation/register/register.dart';
 import 'package:cleanarch/presentation/resources/strings_manager.dart';
 import 'package:cleanarch/presentation/store_details/store_details.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../login/login.dart';
@@ -47,8 +48,8 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
           appBar: AppBar(title: const Text(AppStrings.noRouteFound)),
-              body: const Center(
-                child: Text(AppStrings.noRouteFound),
+              body: Center(
+                child: const Text(AppStrings.noRouteFound).tr(),
               ),
             ));
   }

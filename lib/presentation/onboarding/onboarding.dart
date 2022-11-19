@@ -3,6 +3,7 @@ import 'package:cleanarch/presentation/onboarding/onboarding_viewmodel.dart';
 import 'package:cleanarch/presentation/resources/color_manager.dart';
 import 'package:cleanarch/presentation/resources/strings_manager.dart';
 import 'package:cleanarch/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,7 +23,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   /// bind our view model to our view
   _bind() {
-    _onBoardingViewModel.start();
+    _onBoardingViewModel.start(context);
   }
 
   @override
@@ -34,19 +35,19 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<SliderViewObject>(
-      // first listen to the output of the stream that we created in view model for outputing stream
+        // first listen to the output of the stream that we created in view model for outputing stream
         stream: _onBoardingViewModel.outputSliderViewObject,
         // snapshot contain data
-        builder: (context,snapshot){
+        builder:
+            (BuildContext context, AsyncSnapshot<SliderViewObject> snapshot) {
           return _getContentWidget(snapshot.data);
         });
   }
 
   Widget _getContentWidget(SliderViewObject? sliderViewObject) {
-
-    if(sliderViewObject == null) {
+    if (sliderViewObject == null) {
       return Container();
-    }else {
+    } else {
       return Scaffold(
         backgroundColor: ColorManager.white,
         appBar: AppBar(
@@ -84,11 +85,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       child: Text(
                         AppStrings.skip,
                         textAlign: TextAlign.end,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .subtitle2,
-                      ))),
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ).tr())),
 
               // add layout for indicator and arrows
               _getBottomSheetWidget(sliderViewObject)
@@ -97,7 +95,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         ),
       );
     }
-
   }
 
   Widget _getBottomSheetWidget(SliderViewObject sliderViewObject) {
@@ -132,7 +129,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               for (int i = 0; i < sliderViewObject.numOfSlides; i++)
                 Padding(
                   padding: const EdgeInsets.all(AppPadding.p8),
-                  child: _getProperCircle(i,sliderViewObject.currentIndex),
+                  child: _getProperCircle(i, sliderViewObject.currentIndex),
                 )
             ],
           ),
@@ -143,7 +140,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             child: GestureDetector(
               onTap: () {
                 // go to the previous slide
-               /* _pageController.animateToPage(_getPreviousIndex(),
+                /* _pageController.animateToPage(_getPreviousIndex(),
                     duration:
                     const Duration(milliseconds: DurationConstants.d300),
                     curve: Curves.bounceInOut);*/
