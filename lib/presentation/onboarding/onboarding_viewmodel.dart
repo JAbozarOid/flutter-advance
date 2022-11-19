@@ -33,6 +33,7 @@ class OnBoardingViewModel extends BaseViewModel
   @override
   void dispose() {
     _sliderStreamController.close();
+    _localizationStreamController.close();
   }
 
   // inputs BaseViewModel
